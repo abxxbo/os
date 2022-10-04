@@ -212,11 +212,6 @@ LoadKernel:
 
 
         .KernelLoaded:
-            ; Clears the screen
-            xor ah, ah
-            mov al, 3
-            int 0x10
-
             ; Should be useful
             mov dl, byte [BootDisk]
             mov cx, word [MemoryAvaiable]
