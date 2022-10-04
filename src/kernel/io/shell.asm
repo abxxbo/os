@@ -24,6 +24,9 @@ shell:
 		printc `\r`
 		printc `\n`
 
+    cmp [buffer], dword "ls"
+    je commands.ls
+
     call prompt
 		;; jump back
 		jmp shell
@@ -68,6 +71,20 @@ prompt:
   call printf
   ret
 
+
+commands:
+  .ls:
+    call ListFiles
+    printc `\r`
+		printc `\n`
+    call prompt
+    mov si, 0x00
+    .Loop:
+      mov byte [buffer+si], byte 0
+      inc si
+      cmp si, 128
+      je shell
+  		jne .Loop
 
 buffer: times 512 db 0
 ps1: db `someOS-> `, 0
