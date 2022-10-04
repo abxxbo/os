@@ -1,14 +1,12 @@
-[org 0x0]
+[org 0x7e00]
 
-;; Set video mode
-xor ah, ah
-mov al, 3
-int 0x10
+mov bx, test
+call printf
 
 jmp $
 
-;; Interrupts
+test: db `Hello World\r\n`, 0
 
-
-;; io
-%include "io.asm"
+;; Includes
+;;; Output
+%include "output.asm"
