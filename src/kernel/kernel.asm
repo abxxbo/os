@@ -8,5 +8,6 @@ jmp $
 test: db `Hello World\r\n`, 0
 
 ;; Includes
+%include "disk/disk.asm"
 ;;; Output
 %include "output.asm"
