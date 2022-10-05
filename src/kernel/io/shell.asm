@@ -95,12 +95,7 @@ commands:
 		printc `\n`
     call prompt
     mov si, 0x00
-    .Loop:
-      mov byte [buffer+si], byte 0
-      inc si
-      cmp si, 128
-      je shell
-  		jne .Loop
+		jmp __shell
 
 		.help:
 			mov bx, __strhelp
@@ -122,6 +117,7 @@ __shell:
 		cmp si, 128
 		jne .Loop
 	call prompt
+	xor si, si
 	jmp shell
 
 

@@ -30,7 +30,7 @@ int 0x10
 call get_ps1
 call prompt
 
-call printf
+xor si, si
 jmp shell
 
 ;; Includes
