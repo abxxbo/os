@@ -10,6 +10,16 @@ mov sp, 0x7e00
 mov bp, sp
 sti
 
+
+PIT_IRQ_OFFSET equ 8*4
+cli
+
+
+mov word [PIT_IRQ_OFFSET], _irq0_isr
+mov word [PIT_IRQ_OFFSET+2], ax
+
+sti
+
 ;; Set video mode
 mov ah, 0x00
 mov al, 0x03
@@ -21,6 +31,7 @@ playsound 1193  ;; play sound
 
 
 ; stopsound
+
 
 
 ;; BEGIN ACTUAL CODE EXEC
@@ -35,6 +46,8 @@ jmp shell
 %include "disk/disk_ops.asm"
 
 %include "io/shell.asm"
+
+%include "arch/pit.asm"
 
 ;;; Output
 %include "output.asm"
