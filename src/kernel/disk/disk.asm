@@ -249,7 +249,8 @@ ReadDiskError:
   mov bx, ReadDiskErrorMessage
   call printf
 
-  jmp ReadDisk.Exit
+  mov [ReadAttempts], byte 0
+  jmp $
 
 BootDisk: db 0
 CurrentCluster: dw 0
