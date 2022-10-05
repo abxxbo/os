@@ -21,11 +21,15 @@ shell:
 	jne .Print
 	.Enter:
 		mov si, 0
+		
 		printc `\r`
 		printc `\n`
 
     cmp [buffer], dword "ls"
     je commands.ls
+
+		cmp [buffer], dword "help"
+		je commands.help
 
     call prompt
 		;; jump back
@@ -89,6 +93,21 @@ commands:
       je shell
   		jne .Loop
 
+		.help:
+			mov bx, __strhelp
+			call printf
+			mov si, 0
+			jmp __shell
+
+__shell:
+	.Loop:
+		mov byte [buffer+si], byte 0
+		inc si
+		cmp si, 128
+		jne .Loop
+	call prompt
+	jmp shell
+
 
 get_ps1:
   ; mov di, 0xc00
@@ -131,3 +150,6 @@ ps1: db `@someOS-> `, 0
 username: db `userna`, 0
 
 HostnameFile: db `HOSTNA  TXT`, 0
+
+
+__strhelp: db `-> help\r\n-> ls\r\n`, 0
