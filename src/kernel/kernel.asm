@@ -1,4 +1,6 @@
 [org 0x7e00]
+%include "pcspkr.asm"
+
 cli
 xor ax, ax
 mov ds, ax
@@ -15,6 +17,10 @@ int 0x10
 
 ;; Initialize drivers
 ;; ...
+playsound 1193  ;; play sound
+
+
+; stopsound
 
 
 ;; BEGIN ACTUAL CODE EXEC

@@ -28,7 +28,7 @@ build_os:
 clean:
 	@rm -rf bin/ obj/
 
-QEMU_FLAGS := -d int -M smm=off -monitor stdio
+QEMU_FLAGS := -d int -M smm=off -monitor stdio -soundhw pcspk
 
 run: qemu
 qemu: $(OUTPUT)
