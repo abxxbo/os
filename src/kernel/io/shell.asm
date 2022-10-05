@@ -31,6 +31,9 @@ shell:
 		cmp [buffer], dword "help"
 		je commands.help
 
+		cmp [buffer], dword "time"
+		je commands.time
+
 
 		;; these commands will not appear in the
 		;; help command -- they are for dev purposes
@@ -103,12 +106,18 @@ commands:
 			mov si, 0
 			jmp __shell
 
+		.time:
+			call print_date
+			call print_time
+			jmp __shell
+
 		.start_beep:
 			playsound 1193
 			jmp __shell
 
 		.stop_beep:
 			stopsound
+			jmp __shell
 
 __shell:
 	.Loop:
@@ -164,4 +173,4 @@ username: db `userna`, 0
 HostnameFile: db `HOSTNA  TXT`, 0
 
 
-__strhelp: db `-> help\r\n-> ls\r\n`, 0
+__strhelp: dw `-> help\r\n-> ls\r\n-> time\r\n`, 0

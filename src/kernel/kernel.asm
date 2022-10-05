@@ -41,5 +41,7 @@ jmp shell
 
 %include "arch/pit.asm"
 
+%include "datetime.asm"
+
 ;;; Output
 %include "output.asm"
