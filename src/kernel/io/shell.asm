@@ -31,6 +31,15 @@ shell:
 		cmp [buffer], dword "help"
 		je commands.help
 
+
+		;; these commands will not appear in the
+		;; help command -- they are for dev purposes
+		cmp [buffer], dword "startbeep"
+		je commands.start_beep
+
+		cmp [buffer], dword "stopbeep"
+		je commands.stop_beep
+
     call prompt
 		;; jump back
 		jmp shell
@@ -98,6 +107,13 @@ commands:
 			call printf
 			mov si, 0
 			jmp __shell
+
+		.start_beep:
+			playsound 1193
+			jmp __shell
+
+		.stop_beep:
+			stopsound
 
 __shell:
 	.Loop:

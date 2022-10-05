@@ -25,14 +25,6 @@ mov ah, 0x00
 mov al, 0x03
 int 0x10
 
-;; Initialize drivers
-;; ...
-playsound 1193  ;; play sound
-
-
-; stopsound
-
-
 
 ;; BEGIN ACTUAL CODE EXEC
 call get_ps1
