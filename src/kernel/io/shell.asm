@@ -92,15 +92,29 @@ commands:
 
 get_ps1:
   ; mov di, 0xc00
-  xor di, di
-  mov bx, 0xc00
+	xor ax, ax
+	mov es, ax
+	
+  mov si, HostnameFile
+	call SearchFile
+	cmp ah, byte 1		;; Error
+	je $
+
+	;; No error
+	mov bx, 0xc00
+	mov di, cx
   call LoadFile
+
+	;; offset
+	mov ax, word [0x9a00]
+	mov word [username], ax
+	
   ; jmp $
   ret
 
 buffer: times 512 db 0
 
 ps1: db `@someOS-> `, 0
-username: db `user`, 0
+username: db `  `, 0
 
 HostnameFile: db `HOSTNA  TXT`, 0

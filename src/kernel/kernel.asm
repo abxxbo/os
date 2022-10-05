@@ -1,7 +1,7 @@
 [org 0x7e00]
 
-call prompt
 call get_ps1
+call prompt
 
 call printf
 jmp shell
