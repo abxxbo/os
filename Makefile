@@ -1,5 +1,6 @@
 AS     := nasm
 AFLAGS := -fbin
+INCLUDE_DIRS := -Isrc/kernel -Ikernel_drivers/
 
 LOOPBACK := loop20
 OUTPUT   := bin/os.flp
@@ -11,7 +12,7 @@ mkdirs:
 
 build_os:
 	$(AS) $(AFLAGS) -Isrc/boot/ src/boot/boot.asm -o obj/boot.o
-	$(AS) $(AFLAGS) -Isrc/kernel/ src/kernel/kernel.asm -o obj/kernel.o
+	$(AS) $(AFLAGS) $(INCLUDE_DIRS) src/kernel/kernel.asm -o obj/kernel.o
 	dd if=/dev/zero of=$(OUTPUT) bs=512 count=2880
 	sudo losetup /dev/$(LOOPBACK) $(OUTPUT)
 	sudo mkdosfs -F 12 /dev/$(LOOPBACK)
@@ -19,7 +20,6 @@ build_os:
 
 	sudo cp obj/kernel.o /mnt/kernel.bin
 	sudo cp on_fs/* /mnt/ -v
-	sleep 0.1
 	sudo umount /mnt
 	sudo losetup -d /dev/$(LOOPBACK)
 
