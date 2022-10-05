@@ -108,13 +108,26 @@ get_ps1:
 	;; offset
 	mov ax, word [0x9a00]
 	mov word [username], ax
+
+	mov ax, word [0x9a01]
+	mov word [username+1], ax
+
+	mov ax, word [0x9a02]
+	mov word [username+2], ax
+
+	mov ax, word [0x9a03]
+	mov word [username+3], ax
+
+	mov ax, word [0x9a04]
+	mov word [username+4], ax
 	
+
   ; jmp $
   ret
 
 buffer: times 512 db 0
 
 ps1: db `@someOS-> `, 0
-username: db `  `, 0
+username: db `userna`, 0
 
 HostnameFile: db `HOSTNA  TXT`, 0
