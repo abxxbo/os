@@ -11,6 +11,8 @@ mkdirs:
 	@mkdir -p obj/ bin/
 
 build_os:
+	make -C test_coms
+
 	$(AS) $(AFLAGS) -Isrc/boot/ src/boot/boot.asm -o obj/boot.o
 	$(AS) $(AFLAGS) $(INCLUDE_DIRS) src/kernel/kernel.asm -o obj/kernel.o
 	dd if=/dev/zero of=$(OUTPUT) bs=512 count=2880
@@ -27,6 +29,7 @@ build_os:
 
 clean:
 	@rm -rf bin/ obj/
+	make -C test_coms clean
 
 QEMU_FLAGS := -d int -M smm=off -monitor stdio -soundhw pcspk
 
