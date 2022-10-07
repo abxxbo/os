@@ -33,21 +33,12 @@ mov ah, 0x00
 mov al, 0x03
 int 0x10
 
-;; Test.
-mov si, test
-call _COM_Exec
-
-
 ;; BEGIN ACTUAL CODE EXEC
 call get_ps1
 call prompt
 
 xor si, si
 jmp shell
-
-
-
-test: db `WRITE   COM`, 0
 
 ;; Includes
 %include "disk/disk.asm"

@@ -43,6 +43,9 @@ shell:
 		cmp [buffer], dword "stopbeep"
 		je commands.stop_beep
 
+		cmp [buffer], dword "testcom"
+		je commands.testcom
+
     call prompt
 		;; jump back
 		jmp shell
@@ -111,6 +114,8 @@ commands:
 			call print_time
 			jmp __shell
 
+
+		;; DEV ;;
 		.start_beep:
 			playsound 1193
 			jmp __shell
@@ -118,6 +123,13 @@ commands:
 		.stop_beep:
 			stopsound
 			jmp __shell
+
+		.testcom:
+			mov si, test
+			call _COM_Exec
+
+test: db `WRITE   COM`, 0
+
 
 __shell:
 	.Loop:
