@@ -44,6 +44,13 @@ jne _No_PCI
 ;; If the shell is executed, then we PCI
 ;; v2.0+ is installed on host.
 
+;; test sys_read
+mov ah, 0x02
+mov bx, STDIN_FD  ;; get input
+mov cx, __test    ;; test buffer
+mov dx, 2         ;; get two bytes
+int 0x80
+
 ;; BEGIN ACTUAL CODE EXEC
 call get_ps1
 call prompt
@@ -51,6 +58,9 @@ call prompt
 xor si, si
 jmp shell
 
+
+jmp $
+__test: db 0    ;; maybe?
 
 _No_PCI:
   mov bx, _No_PCI_M
