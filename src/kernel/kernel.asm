@@ -33,12 +33,32 @@ mov ah, 0x00
 mov al, 0x03
 int 0x10
 
+;; Check for PCI in BIOS
+mov ax, 0xB101
+mov edi, 0x00000000 ;; Value taken from RBIL
+int 0x1a
+
+cmp ah, 0x00
+jne _No_PCI
+
+;; If the shell is executed, then we PCI
+;; v2.0+ is installed on host.
+
 ;; BEGIN ACTUAL CODE EXEC
 call get_ps1
 call prompt
 
 xor si, si
 jmp shell
+
+
+_No_PCI:
+  mov bx, _No_PCI_M
+  call printf
+  jmp $
+
+
+_No_PCI_M: db `[fatal] PCI v2.0 not installed\r\n`, 0
 
 ;; Includes
 %include "disk/disk.asm"
