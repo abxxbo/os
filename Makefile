@@ -12,6 +12,7 @@ mkdirs:
 
 build_os:
 	make -C test_coms
+	make -C src/apps
 
 	$(AS) $(AFLAGS) -Isrc/boot/ src/boot/boot.asm -o obj/boot.o
 	$(AS) $(AFLAGS) $(INCLUDE_DIRS) src/kernel/kernel.asm -o obj/kernel.o
@@ -21,9 +22,12 @@ build_os:
 	sudo mount /dev/$(LOOPBACK) /mnt -t msdos -o "fat=12"
 
 	sudo cp obj/kernel.o /mnt/kernel.bin
-	sudo cp on_fs/* /mnt/ 
-	sudo cp test_coms/bin/* /mnt/
-	
+	sudo cp on_fs/* /mnt/
+
+	@echo Copying all files to root directory...
+	sudo cp test_coms/bin/* /mnt/ -v
+	sudo cp src/apps/bin/* /mnt/ -v
+
 	sudo umount /mnt
 	sudo losetup -d /dev/$(LOOPBACK)
 
@@ -32,6 +36,7 @@ build_os:
 clean:
 	@rm -rf bin/ obj/
 	make -C test_coms clean
+	make -C src/apps clean
 
 QEMU_FLAGS := -d int -M smm=off -monitor stdio -soundhw pcspk
 
