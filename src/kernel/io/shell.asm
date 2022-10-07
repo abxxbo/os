@@ -43,6 +43,14 @@ shell:
 		cmp [buffer], dword "testcom"
 		je commands.testcom
 
+		;; still here? try and find the shell command and
+		;; execute said code
+		mov si, [buffer]
+		call _COM_Exec
+
+		;; The COM will return specifically to this, so it will
+		;; write prompt and jump back to the shell.
+
     call prompt
 		;; jump back
 		jmp shell
@@ -147,24 +155,23 @@ get_ps1:
   call LoadFile
 
 	;; offset
-	mov ax, word [0x9a00]
-	mov word [username], ax
+	mov si, 0x9a00
+	mov di, 0
 
-	mov ax, word [0x9a01]
-	mov word [username+1], ax
+	;; read the file
+	.Loop:
+		cmp si, 0x9a05
+		je .Quit
 
-	mov ax, word [0x9a02]
-	mov word [username+2], ax
+		mov ax, word [si]
+		mov word [username+di], ax
 
-	mov ax, word [0x9a03]
-	mov word [username+3], ax
+		inc si
+		inc di
+		jmp .Loop
 
-	mov ax, word [0x9a04]
-	mov word [username+4], ax
-	
-
-  ; jmp $
-  ret
+	.Quit:
+  	ret
 
 buffer: times 512 db 0
 
