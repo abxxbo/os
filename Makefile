@@ -21,7 +21,9 @@ build_os:
 	sudo mount /dev/$(LOOPBACK) /mnt -t msdos -o "fat=12"
 
 	sudo cp obj/kernel.o /mnt/kernel.bin
-	sudo cp on_fs/* /mnt/ -v
+	sudo cp on_fs/* /mnt/ 
+	sudo cp test_coms/bin/* /mnt/
+	
 	sudo umount /mnt
 	sudo losetup -d /dev/$(LOOPBACK)
 
