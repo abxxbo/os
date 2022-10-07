@@ -26,7 +26,7 @@ build_os:
 
 	@echo Copying all files to root directory...
 	sudo cp test_coms/bin/* /mnt/ -v
-	# sudo cp src/apps/bin/* /mnt/ -v
+	sudo cp src/apps/bin/* /mnt/ -v
 
 	sudo umount /mnt
 	sudo losetup -d /dev/$(LOOPBACK)

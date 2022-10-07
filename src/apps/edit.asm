@@ -4,7 +4,7 @@ MAX_LEN equ 256
 
 ;; Write splash text.
 mov ah, 0x01
-mov bx, foo
+mov bx, welcome0
 mov cx, welcome0_len
 int 0x80
 

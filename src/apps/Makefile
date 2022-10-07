@@ -1,8 +1,7 @@
 AS  := nasm
 ASF := -fbin
 
-all: apps
-
+override ASM_FILES := $(shell find ./ | grep .asm)
 
 # Honestly, the extension doesn't matter that much.
 apps:
