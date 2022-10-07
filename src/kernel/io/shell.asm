@@ -25,9 +25,6 @@ shell:
 		printc `\r`
 		printc `\n`
 
-    cmp [buffer], dword "ls"
-    je commands.ls
-
 		cmp [buffer], dword "help"
 		je commands.help
 
@@ -95,14 +92,6 @@ prompt:
 
 
 commands:
-  .ls:
-    call ListFiles
-    printc `\r`
-		printc `\n`
-    call prompt
-    mov si, 0x00
-		jmp __shell
-
 		.help:
 			mov bx, __strhelp
 			call printf
@@ -185,4 +174,4 @@ username: db `userna`, 0
 HostnameFile: db `HOSTNA  TXT`, 0
 
 
-__strhelp: dw `-> help\r\n-> ls\r\n-> time\r\n`, 0
+__strhelp: dw `-> help\r\n-> time\r\n`, 0

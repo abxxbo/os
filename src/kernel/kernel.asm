@@ -62,7 +62,6 @@ _No_PCI_M: db `[fatal] PCI v2.0 not installed\r\n`, 0
 
 ;; Includes
 %include "disk/disk.asm"
-%include "disk/disk_ops.asm"
 
 %include "io/shell.asm"
 
