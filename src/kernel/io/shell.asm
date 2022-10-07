@@ -124,6 +124,7 @@ commands:
 		.testcom:
 			mov si, test
 			call _COM_Exec
+			jmp __shell
 
 test: db `WRITE   COM`, 0
 
