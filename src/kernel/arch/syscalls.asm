@@ -43,8 +43,9 @@ _syscall_sys_write:
 ;; Input:
 ;; --- AH => 0x02
 ;; --- BX => file descriptor
-;; --- CX => buffer
 ;; --- DX => amount of bytes to read 
+;; Output:
+;; --- CX => Whatever you typed in
 _syscall_sys_read:
   cmp bx, STDIN_FD
   jg _syscall_hdlr.Leave
@@ -71,7 +72,7 @@ _syscall_sys_read:
     jmp .Loop
 
   .ReadyLeave:
-    mov cx, [__buffer]
+    mov cx, __buffer
     jmp _syscall_hdlr.Leave
 
 
