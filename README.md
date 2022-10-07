@@ -9,3 +9,25 @@ This will require sudo (to setup loopback device)
 ```
 make
 ```
+
+# Roadmap
+
+## Main
+- [X] Fat12 bootloader
+- [X] COM Loading
+- [ ] Login system (potentially)
+
+## Drivers
+- [X] PC Speaker
+- [ ] PCI (?)
+- [ ] RTL8139 / E1000 Ethernet
+
+## Applications
+- [ ] Text Editor
+
+## Syscalls
+- [X] `sys_write`
+- [ ] `sys_exit`
+
+## Improvements on pre-existing features
+- [ ] Have shell do argc/argv
