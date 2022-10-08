@@ -43,11 +43,6 @@ shell:
 		cmp [buffer], dword "testcom"
 		je commands.testcom
 
-		;; still here? try and find the shell command and
-		;; execute said code
-		mov si, [buffer]
-		call _COM_Exec
-
 		;; The COM will return specifically to this, so it will
 		;; write prompt and jump back to the shell.
 
