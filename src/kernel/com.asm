@@ -13,3 +13,4 @@ _COM_Exec:
   ;; jump to 0x9b00 and execute
   ;; that code
   call 0x9b00
+  ret   ;; we must return back to where we called
