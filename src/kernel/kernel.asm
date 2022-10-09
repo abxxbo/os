@@ -41,9 +41,6 @@ int 0x1a
 cmp ah, 0x00
 jne _No_PCI
 
-mov ax, 0x9b00
-mov di, __test2
-call WriteToAddr
 
 ;; If the shell is executed, then we PCI
 ;; v2.0+ is installed on host.
@@ -63,8 +60,9 @@ _No_PCI:
   call printf
   jmp $
 
-__test2: db 'fuckk', 0
 _No_PCI_M: db `[fatal] PCI v2.0 not installed\r\n`, 0
+ttessst: db 'EDIT    COM'
+_foo2: times 256 db 0
 
 ;; Includes
 %include "disk/disk.asm"
