@@ -22,7 +22,7 @@ build_os:
 	sudo mount /dev/$(LOOPBACK) /mnt -t msdos -o "fat=12"
 
 	sudo cp obj/kernel.o /mnt/kernel.bin
-	sudo cp on_fs/* /mnt/
+	sudo cp on_fs/*.txt /mnt/
 
 	@echo Copying all files to root directory...
 	sudo cp test_coms/bin/* /mnt/ -v
