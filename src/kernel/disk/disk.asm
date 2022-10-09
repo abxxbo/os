@@ -10,6 +10,23 @@ SectorsPerTrack equ 18
 SectorsPerCluster equ 1
 Heads equ 2
 
+;; AX -> address
+;; DI -> buffer
+WriteToAddr:
+  ;; mov si, 0
+  ;; .Loop:
+  ;;   cmp si, byte cx
+  ;;   je .Exit
+
+  ;;   mov ax, [di]
+
+  ;;   inc si
+  ;; .Exit:
+  ;;   ret
+  mov ax, [di]
+  ret
+
+
 ReadDisk:
   call ResetDisk
 
