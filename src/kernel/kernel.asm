@@ -45,12 +45,22 @@ jne _No_PCI
 ;; If the shell is executed, then we PCI
 ;; v2.0+ is installed on host.
 
-;; BEGIN ACTUAL CODE EXEC
-call get_ps1
-call prompt
 
-xor si, si
-jmp shell
+;; Check for the RTL8139 chip
+mov ax, 0xb102
+mov cx, 0x8139 ;; device id
+mov dx, 0x10ec ;; vendor id
+int 0x1a
+jc __RTL_Error ;; Error!
+jnc _q
+
+;; BEGIN ACTUAL CODE EXEC
+_q:
+  call get_ps1
+  call prompt
+
+  xor si, si
+  jmp shell
 
 
 jmp $
@@ -60,7 +70,31 @@ _No_PCI:
   call printf
   jmp $
 
+__RTL_Error:
+  movzx bx, ah ;; <-- Status
+  call printh
+
+  cmp ah, 0x00  ;; Successful? But CF set, idk, jump to sub
+  je .SubWTF
+  jne .Sub2
+
+  .Sub2:
+    mov bx, __RTL_Err
+    call printf
+    jmp _q
+
+
+  .SubWTF:
+    mov bx, __RTL_Sub
+    call printf
+    jmp $
+
+
 _No_PCI_M: db `[fatal] PCI v2.0 not installed\r\n`, 0
+
+__RTL_Err: db `[non-fatal] RTL8139 is not detected (or some error), continuing...\r\n`, 0
+__RTL_Sub: db `[idk?] I don't know what's going on. Halting..`, 0
+
 ttessst: db 'EDIT    COM'
 _foo2: times 256 db 0
 
