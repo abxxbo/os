@@ -38,7 +38,9 @@ clean:
 	make -C test_coms clean
 	make -C src/apps clean
 
-QEMU_FLAGS := -d int -M smm=off -monitor stdio -soundhw pcspk
+QEMU_FLAGS := -d int -M smm=off -monitor stdio  \
+							-soundhw pcspk -netdev user,id=net0 \
+							-device rtl8139,netdev=net0
 
 run: qemu
 qemu: $(OUTPUT)

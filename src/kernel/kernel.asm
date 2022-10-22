@@ -71,12 +71,18 @@ _No_PCI:
   jmp $
 
 __RTL_Error:
-  movzx bx, ah ;; <-- Status
-  call printh
+  cmp ah, 0x81  ;; Unsupported
+  je .NS_RTL
 
   cmp ah, 0x00  ;; Successful? But CF set, idk, jump to sub
   je .SubWTF
   jne .Sub2
+
+  .NS_RTL:
+    mov bx, __RTL_NS_
+    call printf
+
+    jmp _q
 
   .Sub2:
     mov bx, __RTL_Err
@@ -94,6 +100,8 @@ _No_PCI_M: db `[fatal] PCI v2.0 not installed\r\n`, 0
 
 __RTL_Err: db `[non-fatal] RTL8139 is not detected (or some error), continuing...\r\n`, 0
 __RTL_Sub: db `[idk?] I don't know what's going on. Halting..`, 0
+__RTL_NS_: db `[non-fatal] RTL8139 not supported. Continuing..\r\n`, 0
+
 
 ttessst: db 'EDIT    COM'
 _foo2: times 256 db 0
