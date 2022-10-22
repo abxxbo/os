@@ -20,7 +20,9 @@ make
 ## Drivers
 - [X] PC Speaker
 - [ ] PCI (?)
-- [ ] RTL8139 / E1000 Ethernet
+- [ ] ~~RTL8139 / E1000 Ethernet~~
+- [ ] Full APM
+- [ ] PS/2 Mouse (hopefully)
 
 ## Applications
 - [ ] Text Editor
